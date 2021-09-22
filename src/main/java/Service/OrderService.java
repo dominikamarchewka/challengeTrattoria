@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class OrderService {
     private static final Scanner scanner_ = new Scanner(System.in);
     private final Order order = new Order();
+    private final ArrayList<PizzaType> options;
     private List<Topping> toppingList;
     private PizzaType pizzaType;
     private int quantity = 1;
@@ -17,23 +18,29 @@ public class OrderService {
     private Pizza pizza;
     private boolean validInput;
 
+    public OrderService(ArrayList<PizzaType> options) {
+        this.options = options;
+    }
+
     void getTypeOfPizza() {
-        System.out.println("What kind of pizza would you like to eat? Please select the number you prefer: " +
-                "\n1. Margherita (tomatoes, mozzarella cheese, fresh basil)" +
-                "\n2. Capriciosa (tomatoes, mozzarella cheese, ham, mushrooms)" +
-                "\n3. Calzone (oven-baked folded pizza with mozzarella cheese, salami, egg)");
+        System.out.println("What kind of pizza would you like to eat? Please select the number you prefer: ");
+        int number = 1;
+        for (PizzaType pizzaType : options) {
+            System.out.print(number + ". ");
+            pizzaType.getDetails();
+            System.out.println(pizzaType.getPrice());
+            number++;
+        }
         validInput = false;
         while (!validInput) {
             try {
                 int chooseType = scanner_.nextInt();
                 validInput = true;
-                if (chooseType < 1 || chooseType > 3) {
+                if (chooseType < 0 || chooseType > options.size()) {
                     System.out.println("Please choose correct number!");
                     getTypeOfPizza();
-                } else switch (chooseType) {
-                    case 1 -> pizzaType = PizzaType.MARGHERITA;
-                    case 2 -> pizzaType = PizzaType.CAPRICIOSA;
-                    case 3 -> pizzaType = PizzaType.CALZONE;
+                } else {
+                    pizzaType = options.get(chooseType - 1);
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Please enter correct number!");
