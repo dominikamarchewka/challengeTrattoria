@@ -6,13 +6,13 @@ import java.util.List;
 public class Pizza {
     private float totalPrice = 0;
     private List<Topping> toppingList = new ArrayList<>();
-    private Type type;
+    private PizzaType pizzaType;
     private int quantity;
 
-    public Pizza(float totalPrice, List<Topping> toppingList, Type type, int quantity) {
+    public Pizza(float totalPrice, List<Topping> toppingList, PizzaType pizzaType, int quantity) {
         this.totalPrice = totalPrice;
         this.toppingList = toppingList;
-        this.type = type;
+        this.pizzaType = pizzaType;
         this.quantity = quantity;
     }
 
@@ -31,12 +31,12 @@ public class Pizza {
         this.toppingList = toppingList;
     }
 
-    public Type getType() {
-        return type;
+    public PizzaType getType() {
+        return pizzaType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(PizzaType pizzaType) {
+        this.pizzaType = pizzaType;
     }
 
     public int getQuantity() {
@@ -53,12 +53,12 @@ public class Pizza {
 
     @Override
     public String toString() {
-        if (toppingList.size() != 0) {
-            return type +
+        if (toppingList.size() != 0)
+            return "\n" + pizzaType +
                     ", extra toppings = " + getToppingList() +
                     ", quantity = " + quantity +
                     ", price = " + getTotalPrice();
-        } else return type +
+        else return "\n" + pizzaType +
                 ", quantity = " + quantity +
                 ", price = " + getTotalPrice();
     }

@@ -35,7 +35,7 @@ public class Order {
 
     public float getTotalPrice() {
         for (Pizza pizza : pizzaList) {
-            this.totalPrice += pizza.getTotalPrice();
+            totalPrice += pizza.getTotalPrice();
         }
         return totalPrice;
     }

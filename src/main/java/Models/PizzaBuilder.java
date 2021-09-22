@@ -6,9 +6,9 @@ public class PizzaBuilder {
 
     Pizza pizza = new Pizza();
 
-    public PizzaBuilder withType(Type type){
-        pizza.setType(type);
-        pizza.addToPrice(type.getPrice());
+    public PizzaBuilder withType(PizzaType pizzaType){
+        pizza.setType(pizzaType);
+        pizza.addToPrice(pizzaType.getPrice());
         return this;
     }
 

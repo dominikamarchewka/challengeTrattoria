@@ -1,6 +1,6 @@
 package Models;
 
-public enum Type {
+public enum PizzaType {
     MARGHERITA {
         public float getPrice() {
             return 20;
