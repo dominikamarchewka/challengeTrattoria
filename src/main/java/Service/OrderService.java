@@ -15,86 +15,91 @@ public class OrderService {
     private int quantity = 1;
     private String name;
     private Pizza pizza;
+    private boolean validInput;
 
     void getTypeOfPizza() {
         System.out.println("What kind of pizza would you like to eat? Please select the number you prefer: " +
                 "\n1. Margherita (tomatoes, mozzarella cheese, fresh basil)" +
                 "\n2. Capriciosa (tomatoes, mozzarella cheese, ham, mushrooms)" +
                 "\n3. Calzone (oven-baked folded pizza with mozzarella cheese, salami, egg)");
-        try{
-            int chooseType = scanner_.nextInt();
-            if (chooseType < 1 || chooseType > 3) {
-                System.out.println("Please choose correct number!");
-                getTypeOfPizza();
-            } else {
-                switch (chooseType) {
-                    case 1:
-                        pizzaType = PizzaType.MARGHERITA;
-                        break;
-                    case 2:
-                        pizzaType = PizzaType.CAPRICIOSA;
-                        break;
-                    case 3:
-                        pizzaType = PizzaType.CALZONE;
-                        break;
+        validInput = false;
+        while (!validInput) {
+            try {
+                int chooseType = scanner_.nextInt();
+                validInput = true;
+                if (chooseType < 1 || chooseType > 3) {
+                    System.out.println("Please choose correct number!");
+                    getTypeOfPizza();
+                } else switch (chooseType) {
+                    case 1 -> pizzaType = PizzaType.MARGHERITA;
+                    case 2 -> pizzaType = PizzaType.CAPRICIOSA;
+                    case 3 -> pizzaType = PizzaType.CALZONE;
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter correct number!");
+                scanner_.next();
             }
-        } catch (InputMismatchException e){
-            System.out.println("Please enter correct number!");
-            getTypeOfPizza();
         }
     }
 
     void getToppingsForPizza() {
+        validInput = false;
         toppingList = new ArrayList<>();
         System.out.println("We can upgrade your pizza with the following toppings: salami, ham, mushroom, olives." +
                 "\nHow many toppings would you like to add? Please select the number from 0 to 5: ");
-        try {
-            int numberOfToppings = scanner_.nextInt();
-
-            if (numberOfToppings < 0 || numberOfToppings > 5) {
-                System.out.println("Please enter right number!");
-                getToppingsForPizza();
-            }
-            for (int i = 1; i <= numberOfToppings; i++) {
-                System.out.println("Please select the number of the pizza topping: " +
-                        "\n1. Salami" +
-                        "\n2. Ham" +
-                        "\n3. Mushroom" +
-                        "\n4. Olives");
-                int toppingChoose = scanner_.nextInt();
-                switch (toppingChoose) {
-                    case 1:
-                        toppingList.add(Topping.SALAMI);
-                        break;
-                    case 2:
-                        toppingList.add(Topping.HAM);
-                        break;
-                    case 3:
-                        toppingList.add(Topping.MUSHROOM);
-                        break;
-                    case 4:
-                        toppingList.add(Topping.OLIVES);
-                        break;
-                    default:
-                        System.out.println("Please select correct number!");
-                        i--;
-                        break;
+        while (!validInput) {
+            try {
+                int numberOfToppings = scanner_.nextInt();
+                validInput = true;
+                if (numberOfToppings < 0 || numberOfToppings > 5) {
+                    System.out.println("Please enter right number!");
+                    getToppingsForPizza();
                 }
+                for (int i = 1; i <= numberOfToppings; i++) {
+                    System.out.println("Please select the number of the pizza topping: " +
+                            "\n1. Salami" +
+                            "\n2. Ham" +
+                            "\n3. Mushroom" +
+                            "\n4. Olives");
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            int toppingChoose = scanner_.nextInt();
+                            validInput = true;
+                            switch (toppingChoose) {
+                                case 1 -> toppingList.add(Topping.SALAMI);
+                                case 2 -> toppingList.add(Topping.HAM);
+                                case 3 -> toppingList.add(Topping.MUSHROOM);
+                                case 4 -> toppingList.add(Topping.OLIVES);
+                                default -> {
+                                    System.out.println("Please select correct number!");
+                                    i--;
+                                }
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Please enter correct number!");
+                            scanner_.next();
+                        }
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter correct number!");
+                scanner_.next();
             }
-        } catch (InputMismatchException e){
-            System.out.println("Please enter correct number!");
-            getToppingsForPizza();
         }
     }
 
     void getPizzaQuantity() {
+        validInput = false;
         System.out.println("Thank you for choosing! How many times do we have to prepare a given pizza?");
-        try {
-            quantity = scanner_.nextInt();
-        } catch (InputMismatchException e){
-            System.out.println("Please enter correct number!");
-            getPizzaQuantity();
+        while (!validInput) {
+            try {
+                quantity = scanner_.nextInt();
+                validInput = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter correct number!");
+                scanner_.next();
+            }
         }
     }
 
