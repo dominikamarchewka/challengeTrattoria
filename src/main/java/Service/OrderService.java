@@ -13,7 +13,7 @@ public class OrderService {
     private final ArrayList<PizzaType> options;
     private List<Topping> toppingList;
     private PizzaType pizzaType;
-    private int quantity = 1;
+    private int quantity;
     private String name;
     private Pizza pizza;
     private boolean validInput;
@@ -39,9 +39,7 @@ public class OrderService {
                 if (chooseType < 0 || chooseType > options.size()) {
                     System.out.println("Please choose correct number!");
                     getTypeOfPizza();
-                } else {
-                    pizzaType = options.get(chooseType - 1);
-                }
+                } else pizzaType = options.get(chooseType - 1);
             } catch (InputMismatchException e) {
                 System.out.println("Please enter correct number!");
                 scanner_.next();
@@ -74,13 +72,26 @@ public class OrderService {
                             int toppingChoose = scanner_.nextInt();
                             validInput = true;
                             switch (toppingChoose) {
-                                case 1 -> toppingList.add(Topping.SALAMI);
-                                case 2 -> toppingList.add(Topping.HAM);
-                                case 3 -> toppingList.add(Topping.MUSHROOM);
-                                case 4 -> toppingList.add(Topping.OLIVES);
-                                default -> {
+                                case 1: {
+                                    toppingList.add(Topping.SALAMI);
+                                    break;
+                                }
+                                case 2: {
+                                    toppingList.add(Topping.HAM);
+                                    break;
+                                }
+                                case 3: {
+                                    toppingList.add(Topping.MUSHROOM);
+                                    break;
+                                }
+                                case 4: {
+                                    toppingList.add(Topping.OLIVES);
+                                    break;
+                                }
+                                default: {
                                     System.out.println("Please select correct number!");
                                     i--;
+                                    break;
                                 }
                             }
                         } catch (InputMismatchException e) {
@@ -103,6 +114,10 @@ public class OrderService {
             try {
                 quantity = scanner_.nextInt();
                 validInput = true;
+                if (quantity < 1 || quantity > 99) {
+                    System.out.println("Please enter positive number from 1 to 99!");
+                    getPizzaQuantity();
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Please enter correct number!");
                 scanner_.next();

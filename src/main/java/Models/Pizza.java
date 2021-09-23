@@ -9,13 +9,6 @@ public class Pizza {
     private PizzaType pizzaType;
     private int quantity;
 
-    public Pizza(float totalPrice, List<Topping> toppingList, PizzaType pizzaType, int quantity) {
-        this.totalPrice = totalPrice;
-        this.toppingList = toppingList;
-        this.pizzaType = pizzaType;
-        this.quantity = quantity;
-    }
-
     public Pizza() {
     }
 
